@@ -16,31 +16,39 @@
         <Label x:Name="Lbl_Red" Content="Red" HorizontalAlignment="Left" Margin="315,34,0,0" VerticalAlignment="Top"/>
         <Slider x:Name="Slider_Red" HorizontalAlignment="Left" Margin="394,34,0,0" VerticalAlignment="Top" Width="255" Minimum="0" Maximum="255" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="Slider_Red_ValueChanged"/>
         <TextBox x:Name="Input_Red" HorizontalAlignment="Left" Height="23" Margin="654,34,0,0" MaxLength="3" VerticalAlignment="Top" Width="50" TextChanged="Input_Red_TextChanged"/>
+        <Label x:Name="Lbl_Red_Warn" Content="" HorizontalAlignment="Left" Margin="709,31,0,0" VerticalAlignment="Top" Width="297" FontWeight="Bold" Foreground="Red"/>
 
         <Label x:Name="Lbl_Green" Content="Green" HorizontalAlignment="Left" Margin="315,65,0,0" VerticalAlignment="Top"/>
         <Slider x:Name="Slider_Green" HorizontalAlignment="Left" Margin="394,65,0,0" VerticalAlignment="Top" Width="255" Minimum="0" Maximum="255" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="Slider_Green_ValueChanged"/>
         <TextBox x:Name="Input_Green" HorizontalAlignment="Left" Height="23" Margin="654,65,0,0" MaxLength="3" VerticalAlignment="Top" Width="50" TextChanged="Input_Green_TextChanged"/>
-
+        <Label x:Name="Lbl_Green_Warn" Content="" HorizontalAlignment="Left" Margin="709,65,0,0" VerticalAlignment="Top" Width="297" FontWeight="Bold" Foreground="Red"/>
+        
         <Label x:Name="Lbl_Blue" Content="Blue" HorizontalAlignment="Left" Margin="313,96,0,0" VerticalAlignment="Top"/>
         <Slider x:Name="Slider_Blue" HorizontalAlignment="Left" Margin="394,96,0,0" VerticalAlignment="Top" Width="255" Minimum="0" Maximum="255" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="Slider_Blue_ValueChanged"/>
         <TextBox x:Name="Input_Blue" HorizontalAlignment="Left" Height="23" Margin="654,96,0,0" MaxLength="3" VerticalAlignment="Top" Width="50" TextChanged="Input_Blue_TextChanged"/>
-
+        <Label x:Name="Lbl_Blue_Warn" Content="" HorizontalAlignment="Left" Margin="709,96,0,0" VerticalAlignment="Top" Width="297" FontWeight="Bold" Foreground="Red"/>
+        
         <Label x:Name="Lbl_Transparency" Content="Transparency" HorizontalAlignment="Left" Margin="313,157,0,0" VerticalAlignment="Top"/>
         <Slider x:Name="Slider_Transparency" HorizontalAlignment="Left" Margin="394,157,0,0" VerticalAlignment="Top" Width="255" Minimum="0" Maximum="255" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="Slider_Transparency_ValueChanged"/>
         <TextBox x:Name="Input_Transparency" HorizontalAlignment="Left" Height="23" Margin="654,157,0,0" MaxLength="3" VerticalAlignment="Top" Width="50" TextChanged="Input_Transparency_TextChanged"/>
-
-        <Label x:Name="Lbl_Hue" Content="Hue" HorizontalAlignment="Left" Margin="315,218,0,0" VerticalAlignment="Top"/>
-        <Slider x:Name="Slider_Hue" HorizontalAlignment="Left" Margin="394,218,0,0" VerticalAlignment="Top" Width="255" Minimum="0" Maximum="360" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="Slider_Hue_ValueChanged" IsEnabled="False"/>
-        <TextBox x:Name="Input_Hue" HorizontalAlignment="Left" Height="23" Margin="654,218,0,0" MaxLength="3" VerticalAlignment="Top" Width="50" TextChanged="Input_Hue_TextChanged" IsEnabled="False"/>
-
-        <Label x:Name="Lbl_Saturation" Content="Saturation" HorizontalAlignment="Left" Margin="315,249,0,0" VerticalAlignment="Top"/>
-        <Slider x:Name="Slider_Saturation" HorizontalAlignment="Left" Margin="394,249,0,0" VerticalAlignment="Top" Width="255" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="Slider_Saturation_ValueChanged" IsEnabled="False"/>
-        <TextBox x:Name="Input_Saturation" HorizontalAlignment="Left" Height="23" Margin="654,249,0,0" MaxLength="3" VerticalAlignment="Top" Width="50" TextChanged="Input_Saturation_TextChanged" IsEnabled="False"/>
-
-        <Label x:Name="Lbl_Value" Content="Value" HorizontalAlignment="Left" Margin="313,280,0,0" VerticalAlignment="Top"/>
-        <Slider x:Name="Slider_Value" HorizontalAlignment="Left" Margin="394,280,0,0" VerticalAlignment="Top" Width="255" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="Slider_Value_ValueChanged" IsEnabled="False"/>
-        <TextBox x:Name="Input_Value" HorizontalAlignment="Left" Height="23" Margin="654,280,0,0" MaxLength="3" VerticalAlignment="Top" Width="50" TextChanged="Input_Value_TextChanged" IsEnabled="False"/>
+        <Label x:Name="Lbl_Transparency_Warn" Content="" HorizontalAlignment="Left" Margin="709,157,0,0" VerticalAlignment="Top" Width="297" FontWeight="Bold" Foreground="Red"/>
         
+        <Label x:Name="Lbl_Hue" Content="Hue" HorizontalAlignment="Left" Margin="315,218,0,0" VerticalAlignment="Top"/>
+        <Slider x:Name="Slider_Hue" HorizontalAlignment="Left" Margin="394,218,0,0" VerticalAlignment="Top" Width="255" Minimum="0" Maximum="359" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="Slider_Hue_ValueChanged"/>
+        <TextBox x:Name="Input_Hue" HorizontalAlignment="Left" Height="23" Margin="654,218,0,0" MaxLength="3" VerticalAlignment="Top" Width="50" TextChanged="Input_Hue_TextChanged"/>
+        <Label x:Name="Lbl_Hue_Warn" Content="" HorizontalAlignment="Left" Margin="709,218,0,0" VerticalAlignment="Top" Width="297" FontWeight="Bold" Foreground="Red"/>
+        
+        <Label x:Name="Lbl_Saturation" Content="Saturation" HorizontalAlignment="Left" Margin="315,249,0,0" VerticalAlignment="Top"/>
+        <Slider x:Name="Slider_Saturation" HorizontalAlignment="Left" Margin="394,249,0,0" VerticalAlignment="Top" Width="255" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="Slider_Saturation_ValueChanged"/>
+        <TextBox x:Name="Input_Saturation" HorizontalAlignment="Left" Height="23" Margin="654,249,0,0" MaxLength="3" VerticalAlignment="Top" Width="50" TextChanged="Input_Saturation_TextChanged"/>
+        <Label x:Name="Lbl_Saturation_Warn" Content="" HorizontalAlignment="Left" Margin="709,249,0,0" VerticalAlignment="Top" Width="297" FontWeight="Bold" Foreground="Red"/>
+        
+        <Label x:Name="Lbl_Value" Content="Value" HorizontalAlignment="Left" Margin="313,280,0,0" VerticalAlignment="Top"/>
+        <Slider x:Name="Slider_Value" HorizontalAlignment="Left" Margin="394,280,0,0" VerticalAlignment="Top" Width="255" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="Slider_Value_ValueChanged"/>
+        <TextBox x:Name="Input_Value" HorizontalAlignment="Left" Height="23" Margin="654,280,0,0" MaxLength="3" VerticalAlignment="Top" Width="50" TextChanged="Input_Value_TextChanged"/>
+        <Label x:Name="Lbl_Value_Warn" Content="" HorizontalAlignment="Left" Margin="709,280,0,0" VerticalAlignment="Top" Width="297" FontWeight="Bold" Foreground="Red"/>
+
         <Label x:Name="Lbl_Warn" Content="" HorizontalAlignment="Left" Margin="10,311,0,0" VerticalAlignment="Top" Width="694" FontWeight="Bold" Foreground="Red"/>
+
     </Grid>
 </Window>
