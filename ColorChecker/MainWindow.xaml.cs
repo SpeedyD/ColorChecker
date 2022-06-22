@@ -21,18 +21,7 @@ namespace ColorChecker
     /// </summary>
     public partial class MainWindow : Window
     {
-        double Global_Red = 64;
-        double Global_Green = 128;
-        double Global_Blue = 128;
-        double Global_Transparency = 255;
-
-        double Global_Hue = 180;
-        double Global_Saturation = 50;
-        double Global_Value = 50;
-
-        string Global_Hex = "#FFFFFFFF";
-
-        Color Global_Color;
+        public ColorChanging SwapClass;
 
         bool UpdateBlock_ColorPicker = false;
         bool UpdateBlock_TextSliders_RGB = false;
@@ -42,12 +31,27 @@ namespace ColorChecker
         {
             InitializeComponent();
 
-            Global_Color = new Color
+            SwapClass = new ColorChanging()
             {
-                R = (Byte)Global_Red,
-                B = (Byte)Global_Blue,
-                G = (Byte)Global_Green,
-                A = (Byte)Global_Transparency
+                Global_Red = 180,
+                Global_Blue = 64,
+                Global_Green = 64,
+
+                Global_Transparency = 255,
+
+                Global_Hue = 0,
+                Global_Saturation = 64,
+                Global_Value = 71,
+
+                Global_Hex = "#FFB44040",
+            };
+
+            SwapClass.Global_Color = new Color
+            {
+                R = (Byte)SwapClass.Global_Red,
+                B = (Byte)SwapClass.Global_Blue,
+                G = (Byte)SwapClass.Global_Green,
+                A = (Byte)SwapClass.Global_Transparency
             };
 
             UpdateBlock_TextSliders_RGB = true;
@@ -60,40 +64,44 @@ namespace ColorChecker
             UpdateBlock_ColorPicker = false;
         }
 
+        public void ColorImport(Color ImportColor)
+        {
+            SwapClass.Global_Color = ImportColor;
+            UpdateColorPicker();
+        }
+
         private void UpdateColorPicker()
         {
             if (!UpdateBlock_ColorPicker)
             {
-                ColorPicker.SelectedColor = Global_Color;
+                ColorPicker.SelectedColor = SwapClass.Global_Color;
             }
-            UpdateWarningLabel();
         }
 
         private void UpdateText()
         {
             if (!UpdateBlock_TextSliders_RGB)
             {
-                Input_Red.Text = Global_Red.ToString();
-                Input_Green.Text = Global_Green.ToString();
-                Input_Blue.Text = Global_Blue.ToString();
+                Input_Red.Text = SwapClass.Global_Red.ToString();
+                Input_Green.Text = SwapClass.Global_Green.ToString();
+                Input_Blue.Text = SwapClass.Global_Blue.ToString();
 
-                Input_Transparency.Text = Global_Transparency.ToString();
+                Input_Transparency.Text = SwapClass.Global_Transparency.ToString();
             }
 
             if (!UpdateBlock_TextSliders_HSV)
             {
-                Input_Hue.Text = Global_Hue.ToString();
-                Input_Saturation.Text = Global_Saturation.ToString();
-                Input_Value.Text = Global_Value.ToString();
+                Input_Hue.Text = SwapClass.Global_Hue.ToString();
+                Input_Saturation.Text = SwapClass.Global_Saturation.ToString();
+                Input_Value.Text = SwapClass.Global_Value.ToString();
             }
-            UpdateWarningLabel();
         }
 
         private void UpdateColors_RGBtoHSV()
         {
-            double RCalc = (Global_Red / 255);
-            double GCalc = (Global_Green / 255);
-            double BCalc = (Global_Blue / 255);
+            double RCalc = (SwapClass.Global_Red / 255);
+            double GCalc = (SwapClass.Global_Green / 255);
+            double BCalc = (SwapClass.Global_Blue / 255);
 
             double CalcMax = Math.Max(RCalc, Math.Max(GCalc, BCalc));
             double CalcMin = Math.Min(RCalc, Math.Min(GCalc, BCalc));
@@ -102,7 +110,7 @@ namespace ColorChecker
             double CalcHue = 0;
             double CalcSat = 0;
 
-            if (CalcMax == CalcMin) Global_Hue = 0;
+            if (CalcMax == CalcMin) SwapClass.Global_Hue = 0;
 
             else if (CalcMax == RCalc)
                 CalcHue = (60 * ((GCalc - BCalc) / CalcDiff) + 360) % 360;
@@ -120,34 +128,35 @@ namespace ColorChecker
 
             double CalcVal = CalcMax * 100;
 
-            Global_Hue = (int)CalcHue;
-            Global_Saturation = (int)CalcSat;
-            Global_Value = (int)CalcVal;
+            SwapClass.Global_Hue = (int)CalcHue;
+            SwapClass.Global_Saturation = (int)CalcSat;
+            SwapClass.Global_Value = (int)CalcVal;
 
-            Int32 HRed = (int)Global_Red;
-            Int32 HGreen = (int)Global_Green;
-            Int32 HBlue = (int)Global_Blue;
+            Int32 HRed = (int)SwapClass.Global_Red;
+            Int32 HGreen = (int)SwapClass.Global_Green;
+            Int32 HBlue = (int)SwapClass.Global_Blue;
 
-            Global_Hex = "#FF" + HRed.ToString("X") + HGreen.ToString("X") + HBlue.ToString("X");
+            SwapClass.Global_Hex = "#FF" + HRed.ToString("X") + HGreen.ToString("X") + HBlue.ToString("X");
 
-            Global_Color = new Color
+            SwapClass.Global_Color = new Color
             {
-                R = (Byte)Global_Red,
-                B = (Byte)Global_Blue,
-                G = (Byte)Global_Green,
-                A = (Byte)Global_Transparency
+                R = (Byte)SwapClass.Global_Red,
+                B = (Byte)SwapClass.Global_Blue,
+                G = (Byte)SwapClass.Global_Green,
+                A = (Byte)SwapClass.Global_Transparency
             };
 
             UpdateBlock_TextSliders_RGB = true;
             UpdateColorPicker();
+            UpdateWarningLabel();
             UpdateBlock_TextSliders_RGB = false;
         }
 
         private void UpdateColors_HSVtoRGB()
         {
-            double CalcSat = Global_Saturation / 100;
-            double CalcVal = Global_Value / 100;
-            double CalcHue = Global_Hue / 60;
+            double CalcSat = SwapClass.Global_Saturation / 100;
+            double CalcVal = SwapClass.Global_Value / 100;
+            double CalcHue = SwapClass.Global_Hue / 60;
 
             double CalcC = CalcVal * CalcSat;
             double CalcX = CalcC * (1 - Math.Abs(CalcHue % 2 - 1));
@@ -157,57 +166,58 @@ namespace ColorChecker
             double CalcGreen = 0;
             double CalcBlue = 0;
 
-            if (Global_Hue >= 0 && Global_Hue < 60)
+            if (SwapClass.Global_Hue >= 0 && SwapClass.Global_Hue < 60)
             {
                 CalcRed = CalcC;
                 CalcGreen = CalcX;
                 CalcBlue = 0;
             }
-            else if (Global_Hue >= 60 && Global_Hue < 120)
+            else if (SwapClass.Global_Hue >= 60 && SwapClass.Global_Hue < 120)
             {
                 CalcRed = CalcX;
                 CalcGreen = CalcC;
                 CalcBlue = 0;
             }
-            else if (Global_Hue >= 120 && Global_Hue < 180)
+            else if (SwapClass.Global_Hue >= 120 && SwapClass.Global_Hue < 180)
             {
                 CalcRed = 0;
                 CalcGreen = CalcC;
                 CalcBlue = CalcX;
             }
-            else if (Global_Hue >= 180 && Global_Hue < 240)
+            else if (SwapClass.Global_Hue >= 180 && SwapClass.Global_Hue < 240)
             {
                 CalcRed = 0;
                 CalcGreen = CalcX;
                 CalcBlue = CalcC;
             }
-            else if (Global_Hue >= 240 && Global_Hue < 300)
+            else if (SwapClass.Global_Hue >= 240 && SwapClass.Global_Hue < 300)
             {
                 CalcRed = CalcX;
                 CalcGreen = 0;
                 CalcBlue = CalcC;
             }
-            else if (Global_Hue >= 300 && Global_Hue < 360)
+            else if (SwapClass.Global_Hue >= 300 && SwapClass.Global_Hue < 360)
             {
                 CalcRed = CalcC;
                 CalcGreen = 0;
                 CalcBlue = CalcX;
             }
 
-            Global_Red = (CalcRed + CalcM) * 255;
-            Global_Green = (CalcGreen + CalcM) * 255;
-            Global_Blue = (CalcBlue + CalcM) * 255;
+            SwapClass.Global_Red = (CalcRed + CalcM) * 255;
+            SwapClass.Global_Green = (CalcGreen + CalcM) * 255;
+            SwapClass.Global_Blue = (CalcBlue + CalcM) * 255;
 
-            Global_Color = new Color
+            SwapClass.Global_Color = new Color
             {
-                R = (Byte)Global_Red,
-                B = (Byte)Global_Blue,
-                G = (Byte)Global_Green,
-                A = (Byte)Global_Transparency
+                R = (Byte)SwapClass.Global_Red,
+                B = (Byte)SwapClass.Global_Blue,
+                G = (Byte)SwapClass.Global_Green,
+                A = (Byte)SwapClass.Global_Transparency
             };
 
             UpdateBlock_TextSliders_HSV = true;
             UpdateColorPicker();
+            UpdateWarningLabel();
             UpdateBlock_TextSliders_HSV = false;
         }
 
@@ -216,10 +226,10 @@ namespace ColorChecker
             if (ColorPicker.SelectedColor.HasValue)
             {
                 Color C = ColorPicker.SelectedColor.Value;
-                Global_Red = C.R;
-                Global_Green = C.G;
-                Global_Blue = C.B;
-                Global_Transparency = C.A;
+                SwapClass.Global_Red = C.R;
+                SwapClass.Global_Green = C.G;
+                SwapClass.Global_Blue = C.B;
+                SwapClass.Global_Transparency = C.A;
 
                 SolidColorBrush CB = new SolidColorBrush(C);
 
@@ -227,6 +237,7 @@ namespace ColorChecker
 
                 UpdateBlock_ColorPicker = true;
                 UpdateText();
+                UpdateWarningLabel();
                 UpdateBlock_ColorPicker = false;
             }
         }
@@ -253,7 +264,7 @@ namespace ColorChecker
                 Lbl_Red_Warn.Content = "";
                 int RedValue = Int32.Parse(Input_Red.Text);
                 Slider_Red.Value = RedValue;
-                Global_Red = RedValue;
+                SwapClass.Global_Red = RedValue;
                 UpdateColors_RGBtoHSV();
             }
         }
@@ -262,7 +273,7 @@ namespace ColorChecker
         {
             int RedValue = (int)Slider_Red.Value;
             Input_Red.Text = RedValue.ToString();
-            Global_Red = RedValue;
+            SwapClass.Global_Red = RedValue;
             UpdateColors_RGBtoHSV();
         }
         #endregion
@@ -289,7 +300,7 @@ namespace ColorChecker
                 Lbl_Green_Warn.Content = "";
                 int GreenValue = Int32.Parse(Input_Green.Text);
                 Slider_Green.Value = GreenValue;
-                Global_Green = GreenValue;
+                SwapClass.Global_Green = GreenValue;
                 UpdateColors_RGBtoHSV();
             }
         }
@@ -298,7 +309,7 @@ namespace ColorChecker
         {
             int GreenValue = (int)Slider_Green.Value;
             Input_Green.Text = GreenValue.ToString();
-            Global_Green = GreenValue;
+            SwapClass.Global_Green = GreenValue;
             UpdateColors_RGBtoHSV();
         }
         #endregion
@@ -325,7 +336,7 @@ namespace ColorChecker
                 Lbl_Blue_Warn.Content = "";
                 int BlueValue = Int32.Parse(Input_Blue.Text);
                 Slider_Blue.Value = BlueValue;
-                Global_Blue = BlueValue;
+                SwapClass.Global_Blue = BlueValue;
                 UpdateColors_RGBtoHSV();
             }
         }
@@ -334,7 +345,7 @@ namespace ColorChecker
         {
             int BlueValue = (int)Slider_Blue.Value;
             Input_Blue.Text = BlueValue.ToString();
-            Global_Blue = BlueValue;
+            SwapClass.Global_Blue = BlueValue;
             UpdateColors_RGBtoHSV();
         }
         #endregion
@@ -361,7 +372,7 @@ namespace ColorChecker
                 Lbl_Transparency_Warn.Content = "";
                 int TransparencyValue = Int32.Parse(Input_Transparency.Text);
                 Slider_Transparency.Value = TransparencyValue;
-                Global_Transparency = TransparencyValue;
+                SwapClass.Global_Transparency = TransparencyValue;
                 UpdateColors_RGBtoHSV();
             }
         }
@@ -370,7 +381,7 @@ namespace ColorChecker
         {
             int TransparencyValue = (int)Slider_Transparency.Value;
             Input_Transparency.Text = TransparencyValue.ToString();
-            Global_Transparency = TransparencyValue;
+            SwapClass.Global_Transparency = TransparencyValue;
             UpdateColors_RGBtoHSV();
         }
         #endregion
@@ -397,7 +408,7 @@ namespace ColorChecker
                 Lbl_Hue_Warn.Content = "";
                 int HueValue = Int32.Parse(Input_Hue.Text);
                 Slider_Hue.Value = HueValue;
-                Global_Hue = HueValue;
+                SwapClass.Global_Hue = HueValue;
                 UpdateColors_HSVtoRGB();
             }
         }
@@ -406,7 +417,7 @@ namespace ColorChecker
         {
             int HueValue = (int)Slider_Hue.Value;
             Input_Hue.Text = HueValue.ToString();
-            Global_Hue = HueValue;
+            SwapClass.Global_Hue = HueValue;
             UpdateColors_HSVtoRGB();
         }
         #endregion
@@ -433,7 +444,7 @@ namespace ColorChecker
                 Lbl_Saturation_Warn.Content = "";
                 int SaturationValue = Int32.Parse(Input_Saturation.Text);
                 Slider_Saturation.Value = SaturationValue;
-                Global_Saturation = SaturationValue;
+                SwapClass.Global_Saturation = SaturationValue;
                 UpdateColors_HSVtoRGB();
             }
         }
@@ -442,7 +453,7 @@ namespace ColorChecker
         {
             int SaturationValue = (int)Slider_Saturation.Value;
             Input_Saturation.Text = SaturationValue.ToString();
-            Global_Saturation = SaturationValue;
+            SwapClass.Global_Saturation = SaturationValue;
             UpdateColors_HSVtoRGB();
         }
         #endregion
@@ -469,7 +480,7 @@ namespace ColorChecker
                 Lbl_Value_Warn.Content = "";
                 int ValueValue = Int32.Parse(Input_Value.Text);
                 Slider_Value.Value = ValueValue;
-                Global_Value = ValueValue;
+                SwapClass.Global_Value = ValueValue;
                 UpdateColors_HSVtoRGB();
             }
         }
@@ -478,36 +489,41 @@ namespace ColorChecker
         {
             int ValueValue = (int)Slider_Value.Value;
             Input_Value.Text = ValueValue.ToString();
-            Global_Value = ValueValue;
+            SwapClass.Global_Value = ValueValue;
             UpdateColors_HSVtoRGB();
         }
         #endregion
 
         private void UpdateWarningLabel()
         {
-            if (Global_Saturation == 100)
+            bool ContentSet = false;
+
+            if (SwapClass.Global_Saturation == 100)
             {
-                if (Global_Value >= 5 && Global_Value <= 25)
+                if (SwapClass.Global_Value >= 5 && SwapClass.Global_Value <= 25)
                 {
                     Lbl_Warn.Content = "Warning: Shade Goo";
+                    ContentSet = true;
                 }
             }
-            else if (Global_Saturation >= 15 && Global_Saturation <=30)
+            if (SwapClass.Global_Saturation >= 15 && SwapClass.Global_Saturation <=30)
             {
-                if (Global_Value >= 80 && Global_Value <= 95)
+                if (SwapClass.Global_Value >= 80 && SwapClass.Global_Value <= 95)
                 {
                     Lbl_Warn.Content = "Warning: Pastel Goo";
+                    ContentSet = true;
                 }
             }
-            else if (Global_Saturation < 15 || Global_Value < 5)
+            if (SwapClass.Global_Saturation < 15 || SwapClass.Global_Value < 5)
             {
                 Lbl_Warn.Content = "Warning: Greyscale Goo";
+                ContentSet = true;
             }
-            else
+
+            if (!ContentSet)
             {
                 Lbl_Warn.Content = "";
             }
-
         }
     }
 }
